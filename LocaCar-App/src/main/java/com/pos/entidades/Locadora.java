@@ -32,7 +32,7 @@ public class Locadora {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Endereco endereco;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "locadora", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Carro> carros = new ArrayList();
 
     public Locadora() {

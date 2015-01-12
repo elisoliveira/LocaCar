@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 /**
@@ -32,6 +33,9 @@ public class Carro {
     //e tbm coloquei carro em reserva.
     @OneToOne
     private Reserva reserva;
+
+    @ManyToOne
+    private Locadora locadora;
 
     public Carro() {
     }
@@ -100,6 +104,14 @@ public class Carro {
 
     public void setReserva(Reserva reserva) {
         this.reserva = reserva;
+    }
+
+    public Locadora getLocadora() {
+        return locadora;
+    }
+
+    public void setLocadora(Locadora locadora) {
+        this.locadora = locadora;
     }
 
     @Override
