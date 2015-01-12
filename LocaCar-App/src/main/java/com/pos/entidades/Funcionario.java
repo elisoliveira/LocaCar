@@ -3,13 +3,25 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.pos.entidades;
+
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
 
 /**
  * Created on : 12/01/2015, 09:57:53
+ *
  * @author Elis Oliveira
  */
-public class Funcionario extends Pessoa{
+@Entity
+@DiscriminatorValue("funcionario")
+public class Funcionario extends Pessoa {
+
+    public Funcionario() {
+    }
+
+    public Funcionario(int id, String nome, String login, String senha, Endereco endereco) {
+        super(id, nome, login, senha, endereco);
+    }
 
 }
