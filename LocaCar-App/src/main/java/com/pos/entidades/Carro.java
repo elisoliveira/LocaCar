@@ -5,6 +5,7 @@
  */
 package com.pos.entidades;
 
+import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -23,21 +24,17 @@ import org.hibernate.annotations.NamedQuery;
  */
 @Entity
 @NamedQueries({ 
-
     @NamedQuery(name = Carro.BUSCAR_TODOS_CARROS, query="SELECT c FROM Carro c ORDER BY c.nome"),
     @NamedQuery(name = Carro.BUSCAR_TODOS_CARROS_DISPONIVEIS, query="SELECT c FROM Carro c WHERE c.statusReserva='DISPONIVEL'"),
     @NamedQuery(name = Carro.BUSCAR_TODOS_CARROS_DISPONIVEL_PELO_ID_LOCADORA, query="SELECT c FROM Locadora l JOIN l.carros as c WHERE c.status='DISPONIVEL' AND l.id=:id"),
     @NamedQuery(name = Carro.BUSCAR_TODOS_CARROS_PELO_ID, query="SELECT c FROM Carro c WHERE c.id=:id")
-    
-
 })
-public class Carro {
+public class Carro implements Serializable {
 
     public static final String BUSCAR_TODOS_CARROS = "buscar.todos.carros";
     public static final String BUSCAR_TODOS_CARROS_DISPONIVEIS = "buscar.todos.carros.disponiveis";
     public static final String BUSCAR_TODOS_CARROS_DISPONIVEL_PELO_ID_LOCADORA = "buscar.todos.carros.disponiveis.pelo.id.locadora";
     public static final String BUSCAR_TODOS_CARROS_PELO_ID = "buscar.todos.carros.pelo.id";
-//    public static final String RESERVAR_CARRO = "reservar.carro";
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -50,8 +47,6 @@ public class Carro {
     private int ano;
     private String placa;
 
-    //coloquei a reserva aqui pra facilitar as consultas!
-    //e tbm coloquei carro em reserva.
     @OneToOne
     private Reserva reserva;
 

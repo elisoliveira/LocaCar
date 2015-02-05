@@ -5,6 +5,7 @@
  */
 package com.pos.entidades;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -15,14 +16,24 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import org.hibernate.annotations.NamedQueries;
+import org.hibernate.annotations.NamedQuery;
 
 /**
  * Created on : 12/01/2015, 09:19:02
  *
  * @author Elis Oliveira
  */
+
 @Entity
-public class Locadora {
+@NamedQueries({
+    @NamedQuery(name = Locadora.BUSCAR_TODAS_AS_LOCADORAS, query = "SELECT l FROM Locadora l ORDER BY l.nome"),
+    @NamedQuery(name = Locadora.BUSCAR_TODAS_AS_LOCADORAS_PELO_ID, query = "SELECT l FROM Locadora l WHERE l.id=:id")
+})
+public class Locadora implements Serializable {
+
+    public static final String BUSCAR_TODAS_AS_LOCADORAS = "buscar.todas.as.locadoras";
+    public static final String BUSCAR_TODAS_AS_LOCADORAS_PELO_ID = "buscar.todas.as.locadoras.pelo.id";
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
