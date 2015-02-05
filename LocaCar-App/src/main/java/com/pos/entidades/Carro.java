@@ -6,11 +6,15 @@
 package com.pos.entidades;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import org.hibernate.annotations.NamedQueries;
+import org.hibernate.annotations.NamedQuery;
 
 /**
  * Created on : 12/01/2015, 09:21:52
@@ -18,13 +22,30 @@ import javax.persistence.OneToOne;
  * @author Elis Oliveira
  */
 @Entity
+@NamedQueries({ 
+
+    @NamedQuery(name = Carro.BUSCAR_TODOS_CARROS, query="SELECT c FROM Carro c ORDER BY c.nome"),
+    @NamedQuery(name = Carro.BUSCAR_TODOS_CARROS_DISPONIVEIS, query="SELECT c FROM Carro c WHERE c.statusReserva='DISPONIVEL'"),
+    @NamedQuery(name = Carro.BUSCAR_TODOS_CARROS_DISPONIVEL_PELO_ID_LOCADORA, query="SELECT c FROM Locadora l JOIN l.carros as c WHERE c.status='DISPONIVEL' AND l.id=:id"),
+    @NamedQuery(name = Carro.BUSCAR_TODOS_CARROS_PELO_ID, query="SELECT c FROM Carro c WHERE c.id=:id")
+    
+
+})
 public class Carro {
+
+    public static final String BUSCAR_TODOS_CARROS = "buscar.todos.carros";
+    public static final String BUSCAR_TODOS_CARROS_DISPONIVEIS = "buscar.todos.carros.disponiveis";
+    public static final String BUSCAR_TODOS_CARROS_DISPONIVEL_PELO_ID_LOCADORA = "buscar.todos.carros.disponiveis.pelo.id.locadora";
+    public static final String BUSCAR_TODOS_CARROS_PELO_ID = "buscar.todos.carros.pelo.id";
+//    public static final String RESERVAR_CARRO = "reservar.carro";
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String nome;
-    private boolean statusReserva;
+
+    @Enumerated(EnumType.STRING)
+    private TipoStatusReserva statusReserva;
     private float valor;
     private int ano;
     private String placa;
@@ -40,7 +61,7 @@ public class Carro {
     public Carro() {
     }
 
-    public Carro(int id, String nome, boolean statusReserva, float valor, int ano, String placa, Reserva reserva) {
+    public Carro(int id, String nome, TipoStatusReserva statusReserva, float valor, int ano, String placa, Reserva reserva) {
         this.id = id;
         this.nome = nome;
         this.statusReserva = statusReserva;
@@ -66,11 +87,11 @@ public class Carro {
         this.nome = nome;
     }
 
-    public boolean isStatusReserva() {
+    public TipoStatusReserva getStatusReserva() {
         return statusReserva;
     }
 
-    public void setStatusReserva(boolean statusReserva) {
+    public void setStatusReserva(TipoStatusReserva statusReserva) {
         this.statusReserva = statusReserva;
     }
 
