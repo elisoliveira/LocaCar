@@ -26,7 +26,7 @@ import org.hibernate.annotations.NamedQuery;
 @NamedQueries({ 
     @NamedQuery(name = Carro.BUSCAR_TODOS_CARROS, query="SELECT c FROM Carro c ORDER BY c.nome"),
     @NamedQuery(name = Carro.BUSCAR_TODOS_CARROS_DISPONIVEIS, query="SELECT c FROM Carro c WHERE c.statusReserva='DISPONIVEL'"),
-    @NamedQuery(name = Carro.BUSCAR_TODOS_CARROS_DISPONIVEL_PELO_ID_LOCADORA, query="SELECT c FROM Locadora l JOIN l.carros as c WHERE c.status='DISPONIVEL' AND l.id=:id"),
+    @NamedQuery(name = Carro.BUSCAR_TODOS_CARROS_DISPONIVEL_PELO_ID_LOCADORA, query="SELECT c FROM Locadora l JOIN l.carros AS c WHERE c.statusReserva='DISPONIVEL' AND l.id=:id"),
     @NamedQuery(name = Carro.BUSCAR_TODOS_CARROS_PELO_ID, query="SELECT c FROM Carro c WHERE c.id=:id")
 })
 public class Carro implements Serializable {

@@ -3,18 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.pos.services;
 
 import com.pos.dao.DaoImpl;
 import com.pos.entidades.Carro;
+import com.pos.entidades.Cliente;
 import com.pos.entidades.Locadora;
-import com.pos.managedBean.CarroController;
+import com.pos.entidades.Reserva;
+import com.pos.entidades.TipoStatusReserva;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.annotation.Resource;
-import javax.ejb.EJB;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.persistence.EntityManager;
@@ -27,58 +30,83 @@ import javax.transaction.UserTransaction;
  */
 @WebService(serviceName = "LocaService")
 public class LocaService {
-    
+
     @PersistenceContext(name = "LOCACAR-PU")
     private EntityManager manager;
     @Resource
     private UserTransaction transaction;
-    @EJB
-    private CarroController carcontrol;
-    
-    private final DaoImpl dao = new DaoImpl(manager, transaction);
+    private DaoImpl dao;
+    private Reserva reserva;
+    private Cliente cliente;
+    private Carro carro;
+
     /**
      * This is a sample web service operation
-     * @return 
+     *
+     * @return
      */
-         
     @WebMethod(operationName = "getCarros")
-    public List<Carro> getCarros(){
+    public List<Carro> getCarros() {
         return (List<Carro>) dao.buscaObjetoComNamedQuery(Carro.BUSCAR_TODOS_CARROS, null);
     }
-    
+
     @WebMethod(operationName = "getCarrosDisponiveis")
-    public List<Carro> getCarrosDisponiveis(){
+    public List<Carro> getCarrosDisponiveis() {
         return (List<Carro>) dao.buscaListaComNamedQuery(Carro.BUSCAR_TODOS_CARROS_DISPONIVEIS, null);
     }
-    
+
     @WebMethod(operationName = "getCarrosDisponiveisPorIdLocadora")
-    public List<Carro> getCarrosDisponiveisPorIdLocaldora(int idLocadora){
+    public List<Carro> getCarrosDisponiveisPorIdLocaldora(int idLocadora) {
         Map<String, Object> params = new HashMap();
         params.put("id", idLocadora);
         return (List<Carro>) dao.buscaListaComNamedQuery(Carro.BUSCAR_TODOS_CARROS_DISPONIVEL_PELO_ID_LOCADORA, params);
     }
-    
+
     @WebMethod(operationName = "getCarroPorId")
-    public Carro getCarroPorId(int idCarro){
+    public Carro getCarroPorId(int idCarro) {
         Map<String, Object> params = new HashMap();
         params.put("id", idCarro);
         return (Carro) dao.buscaListaComNamedQuery(Carro.BUSCAR_TODOS_CARROS_PELO_ID, params);
     }
-    
+
     @WebMethod(operationName = "getLocadoras")
-    public Locadora getLocadoras(){
-        return (Locadora) dao.buscaListaComNamedQuery(Locadora.BUSCAR_TODAS_AS_LOCADORAS, null);
+    public List<Locadora> getLocadoras() {
+        return (List<Locadora>) dao.buscaListaComNamedQuery(Locadora.BUSCAR_TODAS_AS_LOCADORAS, null);
     }
-    
+
     @WebMethod(operationName = "getLocadoraPorId")
-    public Locadora getLocadoraPorId(int idLocadora){
+    public Locadora getLocadoraPorId(int idLocadora) {
         Map<String, Object> params = new HashMap();
         params.put("id", idLocadora);
         return (Locadora) dao.buscaObjetoComNamedQuery(Locadora.BUSCAR_TODAS_AS_LOCADORAS_PELO_ID, params);
     }
-    
+
     @WebMethod(operationName = "reservarCarro")
-    public void reservarCarro(int idCarro){
-        carcontrol.reservaCarro(idCarro);
+    public void reservarCarro(int idCarro) {
+        Date dataEntrada = new Date();
+
+        reserva.setDataInicioReserva(dataEntrada);
+        reserva.setCliente(cliente);
+        reserva.setCarro(carro);
+
+        dao.salva(reserva);
+
+        carro.setStatusReserva(TipoStatusReserva.RESERVADO);
+        dao.atualiza(carro);
+        
+
     }
+
+    @PostConstruct
+    public void onConstruct() {
+        dao = new DaoImpl(manager, transaction);
+
+    }
+
+    @PreDestroy
+    public void onDestroy() {
+        manager = null;
+        dao = null;
+    }
+
 }

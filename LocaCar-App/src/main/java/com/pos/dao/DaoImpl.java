@@ -32,7 +32,7 @@ public class DaoImpl implements Dao {
     }
 
     @Override
-    public void salva(Object object) {
+    public void salva(Object object){
         try {
             transaction.begin();
             manager.persist(object);
