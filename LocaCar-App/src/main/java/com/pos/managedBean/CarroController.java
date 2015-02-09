@@ -12,6 +12,8 @@ import com.pos.entidades.Cliente;
 import com.pos.entidades.Reserva;
 import com.pos.entidades.TipoStatusReserva;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.annotation.Resource;
@@ -42,7 +44,10 @@ public class CarroController {
     private Cliente cliente;
     
     
-    public void reservaCarro(){
+    public void reservaCarro(int idCarro){
+        Map<String, Object> params = new HashMap();
+        params.put("id", idCarro);
+        carro = (Carro) dao.buscaObjetoComNamedQuery(Carro.BUSCAR_TODOS_CARROS_PELO_ID, params);
         Date dataEntrada = new Date();
         
         try {

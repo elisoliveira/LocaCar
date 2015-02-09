@@ -6,13 +6,20 @@
 
 package com.pos.services;
 
+import com.pos.dao.DaoImpl;
 import com.pos.entidades.Carro;
 import com.pos.entidades.Locadora;
-import java.util.ArrayList;
+import com.pos.managedBean.CarroController;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import javax.annotation.Resource;
+import javax.ejb.EJB;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
-import javax.jws.WebParam;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.transaction.UserTransaction;
 
 /**
  *
@@ -20,50 +27,58 @@ import javax.jws.WebParam;
  */
 @WebService(serviceName = "LocaService")
 public class LocaService {
-
+    
+    @PersistenceContext(name = "LOCACAR-PU")
+    private EntityManager manager;
+    @Resource
+    private UserTransaction transaction;
+    @EJB
+    private CarroController carcontrol;
+    
+    private final DaoImpl dao = new DaoImpl(manager, transaction);
     /**
      * This is a sample web service operation
+     * @return 
      */
          
     @WebMethod(operationName = "getCarros")
     public List<Carro> getCarros(){
-        List<Carro> carros = new ArrayList<>();
-        return carros;
+        return (List<Carro>) dao.buscaObjetoComNamedQuery(Carro.BUSCAR_TODOS_CARROS, null);
     }
     
     @WebMethod(operationName = "getCarrosDisponiveis")
     public List<Carro> getCarrosDisponiveis(){
-        List<Carro> carros = new ArrayList<>();
-        return carros;
+        return (List<Carro>) dao.buscaListaComNamedQuery(Carro.BUSCAR_TODOS_CARROS_DISPONIVEIS, null);
     }
     
     @WebMethod(operationName = "getCarrosDisponiveisPorIdLocadora")
     public List<Carro> getCarrosDisponiveisPorIdLocaldora(int idLocadora){
-        List<Carro> carros = new ArrayList<>();
-        return carros;
+        Map<String, Object> params = new HashMap();
+        params.put("id", idLocadora);
+        return (List<Carro>) dao.buscaListaComNamedQuery(Carro.BUSCAR_TODOS_CARROS_DISPONIVEL_PELO_ID_LOCADORA, params);
     }
     
     @WebMethod(operationName = "getCarroPorId")
     public Carro getCarroPorId(int idCarro){
-        Carro carros = new Carro();
-        return carros;
+        Map<String, Object> params = new HashMap();
+        params.put("id", idCarro);
+        return (Carro) dao.buscaListaComNamedQuery(Carro.BUSCAR_TODOS_CARROS_PELO_ID, params);
     }
     
     @WebMethod(operationName = "getLocadoras")
     public Locadora getLocadoras(){
-        Locadora locadora = new Locadora();
-        return locadora;
+        return (Locadora) dao.buscaListaComNamedQuery(Locadora.BUSCAR_TODAS_AS_LOCADORAS, null);
     }
     
     @WebMethod(operationName = "getLocadoraPorId")
     public Locadora getLocadoraPorId(int idLocadora){
-        Locadora locadora = new Locadora();
-        return locadora;
+        Map<String, Object> params = new HashMap();
+        params.put("id", idLocadora);
+        return (Locadora) dao.buscaObjetoComNamedQuery(Locadora.BUSCAR_TODAS_AS_LOCADORAS_PELO_ID, params);
     }
     
     @WebMethod(operationName = "reservarCarro")
-    public Carro reservarCarro(int idCarro){
-        Carro carro = new Carro();
-        return carro;
+    public void reservarCarro(int idCarro){
+        carcontrol.reservaCarro(idCarro);
     }
 }
