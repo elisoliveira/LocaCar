@@ -6,11 +6,9 @@
 package com.pos.entidades;
 
 import java.io.Serializable;
-import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -37,7 +35,6 @@ public class Carro implements Serializable {
     public static final String BUSCAR_TODOS_CARROS = "buscar.todos.carros";
     public static final String BUSCAR_TODOS_CARROS_DISPONIVEIS = "buscar.todos.carros.disponiveis";
     public static final String BUSCAR_TODOS_CARROS_DISPONIVEL_PELO_ID_LOCADORA = "buscar.todos.carros.disponiveis.pelo.id.locadora";
-    public static final String BUSCAR_CARRO_PELO_ID = "buscar.todos.carros.pelo.id";
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -54,7 +51,7 @@ public class Carro implements Serializable {
     private Reserva reserva;
 
     @ManyToOne
-    @Basic(fetch = FetchType.LAZY)
+    public static final String BUSCAR_CARRO_PELO_ID = "buscar.todos.carros.pelo.id";
     private Locadora locadora;
 
     public Carro() {
@@ -129,5 +126,4 @@ public class Carro implements Serializable {
     public String toString() {
         return "Carro{" + "id=" + id + ", nome=" + nome + ", statusReserva=" + statusReserva + ", valor=" + valor + ", ano=" + ano + ", placa=" + placa + ", reserva=" + reserva + '}';
     }
-
 }
