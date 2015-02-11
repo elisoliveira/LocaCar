@@ -1,0 +1,12 @@
+com\pos\entidades\Carro.class
+com\pos\services\LocaServiceInterno.class
+com\pos\entidades\Endereco.class
+com\pos\services\LocaService.class
+com\pos\dao\Dao.class
+com\pos\entidades\TipoStatusReserva.class
+com\pos\entidades\Reserva.class
+com\pos\entidades\Funcionario.class
+com\pos\entidades\Pessoa.class
+com\pos\entidades\Cliente.class
+com\pos\dao\DaoImpl.class
+com\pos\entidades\Locadora.class
