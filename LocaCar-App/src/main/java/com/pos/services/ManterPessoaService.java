@@ -6,8 +6,7 @@
 package com.pos.services;
 
 import com.pos.dao.DaoImpl;
-import com.pos.entidades.Funcionario;
-import com.pos.entidades.Reserva;
+import com.pos.entidades.Pessoa;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.annotation.Resource;
@@ -22,7 +21,7 @@ import javax.transaction.UserTransaction;
  * @author Magdiel Ildefonso
  */
 @WebService(serviceName = "ManterFuncionarioService")
-public class ManterFuncionarioService {
+public class ManterPessoaService {
 
     /**
      * This is a sample web service operation
@@ -37,18 +36,18 @@ public class ManterFuncionarioService {
      * This is a sample web service operation
      */
     @WebMethod(operationName = "cadastrarFuncionario")
-    public void addCliente(Funcionario funcionario) {
-        dao.salva(funcionario);
+    public void addPessoa(Pessoa pessoa) {
+        dao.salva(pessoa);
     }
 
     @WebMethod(operationName = "atualizarFuncionario")
-    public void atualiza(Funcionario funcionario) {
-        dao.atualiza(funcionario);
+    public void atualiza(Pessoa pessoa) {
+        dao.atualiza(pessoa);
     }
 
     @WebMethod(operationName = "excluirFuncionario")
-    public void deleta(Funcionario funcionario) {
-        dao.deleta(funcionario);
+    public void deleta(Pessoa pessoa) {
+        dao.deleta(pessoa);
     }
 
     @PostConstruct

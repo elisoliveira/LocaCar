@@ -24,25 +24,21 @@ import javax.persistence.OneToOne;
  * @author Elis Oliveira
  */
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn(name = "usuario_type", discriminatorType = DiscriminatorType.STRING)
 public class Pessoa implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String nome;
-    private String login;
-    private String senha;
-    
+    private String documento;
+
     public Pessoa() {
     }
 
-    public Pessoa(int id, String nome, String login, String senha) {
+    public Pessoa(int id, String nome, String documento) {
         this.id = id;
         this.nome = nome;
-        this.login = login;
-        this.senha = senha;
+        this.documento = documento;
     }
 
     public int getId() {
@@ -61,24 +57,17 @@ public class Pessoa implements Serializable {
         this.nome = nome;
     }
 
-    public String getLogin() {
-        return login;
+    public String getDocumento() {
+        return documento;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
+    public void setDocumento(String documento) {
+        this.documento = documento;
     }
 
     @Override
     public String toString() {
-        return "Pessoa{" + "id=" + id + ", nome=" + nome + ", login=" + login + ", senha=" + senha + '}';
+        return "Pessoa{" + "id=" + id + ", nome=" + nome + ", documento=" + documento + '}';
     }
+
 }

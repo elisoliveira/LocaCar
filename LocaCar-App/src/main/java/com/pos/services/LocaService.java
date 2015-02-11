@@ -7,8 +7,8 @@ package com.pos.services;
 
 import com.pos.dao.DaoImpl;
 import com.pos.entidades.Carro;
-import com.pos.entidades.Cliente;
 import com.pos.entidades.Locadora;
+import com.pos.entidades.Pessoa;
 import com.pos.entidades.Reserva;
 import com.pos.entidades.TipoStatusReserva;
 import java.util.Date;
@@ -73,16 +73,16 @@ public class LocaService {
     }
 
     @WebMethod(operationName = "reservarCarro")
-    public void reservarCarro(int idCarro, Cliente cliente, Date dtInicial, Date dtFinal) {
+    public void reservarCarro(int idCarro, Pessoa pessoa, Date dtInicial, Date dtFinal) {
         Map<String, Object> params = new HashMap();
         params.put("id", idCarro);
         Carro carro =  (Carro) dao.buscaObjetoComNamedQuery(Carro.BUSCAR_CARRO_PELO_ID, params);
         
-        dao.salva(cliente);
+        dao.salva(pessoa);
         
         Reserva reserva = new Reserva();
         reserva.setCarro(carro);
-        reserva.setCliente(cliente);
+        reserva.setPessoa(pessoa);
         reserva.setDataFimReserva(dtFinal);
         reserva.setDataInicioReserva(dtInicial);
         

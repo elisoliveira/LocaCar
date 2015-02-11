@@ -4,9 +4,7 @@
     <provider>org.hibernate.ejb.HibernatePersistence</provider>
     <jta-data-source>jdbc/locacar</jta-data-source>
     <class>com.pos.entidades.Carro</class>
-    <class>com.pos.entidades.Cliente</class>
     <class>com.pos.entidades.Endereco</class>
-    <class>com.pos.entidades.Funcionario</class>
     <class>com.pos.entidades.Locadora</class>
     <class>com.pos.entidades.Pessoa</class>
     <class>com.pos.entidades.Reserva</class>

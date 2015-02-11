@@ -34,17 +34,17 @@ public class Reserva {
 
     @ManyToOne
     @Basic(fetch = FetchType.LAZY)
-    private Cliente cliente;
+    private Pessoa pessoa;
 
     public Reserva() {
     }
 
-    public Reserva(int id, Date dataInicioReserva, Date dataFimReserva, Carro carro, Cliente cliente) {
+    public Reserva(int id, Date dataInicioReserva, Date dataFimReserva, Carro carro, Pessoa pessoa) {
         this.id = id;
         this.dataInicioReserva = dataInicioReserva;
         this.dataFimReserva = dataFimReserva;
         this.carro = carro;
-        this.cliente = cliente;
+        this.pessoa = pessoa;
     }
 
     public int getId() {
@@ -79,17 +79,17 @@ public class Reserva {
         this.carro = carro;
     }
 
-    public Cliente getCliente() {
-        return cliente;
+    public Pessoa getPessoa() {
+        return pessoa;
     }
 
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
+    public void setPessoa(Pessoa pessoa) {
+        this.pessoa = pessoa;
     }
 
     @Override
     public String toString() {
-        return "Reserva{" + "id=" + id + ", dataInicioReserva=" + dataInicioReserva + ", dataFimReserva=" + dataFimReserva + ", carro=" + carro + ", cliente=" + cliente + '}';
+        return "Reserva{" + "id=" + id + ", dataInicioReserva=" + dataInicioReserva + ", dataFimReserva=" + dataFimReserva + ", carro=" + carro + ", pessoa=" + pessoa + '}';
     }
 
 }
