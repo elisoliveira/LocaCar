@@ -8,6 +8,7 @@ package com.pos.dao;
 import java.util.List;
 import java.util.Map;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.transaction.HeuristicMixedException;
 import javax.transaction.HeuristicRollbackException;
@@ -23,6 +24,7 @@ import javax.transaction.UserTransaction;
  */
 public class DaoImpl implements Dao {
 
+    @PersistenceContext(name = "LOCACAR-PU")
     private EntityManager manager;
     private UserTransaction transaction;
 
