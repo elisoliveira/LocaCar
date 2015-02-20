@@ -34,9 +34,10 @@ public class ManterReservaService {
 
     /**
      * This is a sample web service operation
+     * @param reserva
      */
     @WebMethod(operationName = "cadastrarReserva")
-    public void addCliente(Reserva reserva) {
+    public void addReserva(Reserva reserva) {
         dao.salva(reserva);
     }
 

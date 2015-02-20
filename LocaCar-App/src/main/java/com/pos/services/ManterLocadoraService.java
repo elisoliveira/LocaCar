@@ -3,26 +3,27 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package com.pos.services;
 
 import com.pos.dao.DaoImpl;
-import com.pos.entidades.Pessoa;
+import com.pos.entidades.Locadora;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.annotation.Resource;
-import javax.jws.WebService;
 import javax.jws.WebMethod;
+import javax.jws.WebService;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.UserTransaction;
 
 /**
- *
- * @author Magdiel Ildefonso
+ * Created on : 20/02/2015, 10:30:58
+ * @author Elis Oliveira
  */
-@WebService(serviceName = "ManterPessoaService")
-public class ManterPessoaService {
-
+@WebService(serviceName = "ManterLocadoraService")
+public class ManterLocadoraService {
+    
     /**
      * This is a sample web service operation
      */
@@ -34,26 +35,27 @@ public class ManterPessoaService {
 
     /**
      * This is a sample web service operation
-     * @param pessoa
+     * @param locadora
      */
-    @WebMethod(operationName = "cadastrarPessoa")
-    public void addPessoa(Pessoa pessoa) {
-        dao.salva(pessoa);
+    @WebMethod(operationName = "cadastrarLocadora")
+    public void addLocadora(Locadora locadora) {
+        dao.salva(locadora);
     }
 
-    @WebMethod(operationName = "atualizarPessoa")
-    public void atualiza(Pessoa pessoa) {
-        dao.atualiza(pessoa);
+    @WebMethod(operationName = "atualizaLocadora")
+    public void atualiza(Locadora locadora) {
+        dao.atualiza(locadora);
     }
 
-    @WebMethod(operationName = "excluirPessoa")
-    public void deleta(Pessoa pessoa) {
-        dao.deleta(pessoa);
+    @WebMethod(operationName = "excluirLocadora")
+    public void deleta(Locadora locadora) {
+        dao.deleta(locadora);
     }
 
     @PostConstruct
     public void onConstruct() {
         dao = new DaoImpl(manager, transaction);
+
     }
 
     @PreDestroy
@@ -61,4 +63,5 @@ public class ManterPessoaService {
         manager = null;
         dao = null;
     }
+
 }

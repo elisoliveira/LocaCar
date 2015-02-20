@@ -34,9 +34,10 @@ public class ManterCarroService {
 
     /**
      * This is a sample web service operation
+     * @param carro
      */
     @WebMethod(operationName = "cadastrarCarro")
-    public void addCliente(Carro carro) {
+    public void addCarro(Carro carro) {
         dao.salva(carro);
     }
 
