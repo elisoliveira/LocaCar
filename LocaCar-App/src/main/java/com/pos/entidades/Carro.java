@@ -35,6 +35,7 @@ public class Carro implements Serializable {
     public static final String BUSCAR_TODOS_CARROS = "buscar.todos.carros";
     public static final String BUSCAR_TODOS_CARROS_DISPONIVEIS = "buscar.todos.carros.disponiveis";
     public static final String BUSCAR_TODOS_CARROS_DISPONIVEL_PELO_ID_LOCADORA = "buscar.todos.carros.disponiveis.pelo.id.locadora";
+    public static final String BUSCAR_CARRO_PELO_ID = "buscar.todos.carros.pelo.id";
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -51,7 +52,6 @@ public class Carro implements Serializable {
     private Reserva reserva;
 
     @ManyToOne
-    public static final String BUSCAR_CARRO_PELO_ID = "buscar.todos.carros.pelo.id";
     private Locadora locadora;
 
     public Carro() {
