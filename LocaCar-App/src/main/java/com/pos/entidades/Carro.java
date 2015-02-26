@@ -126,4 +126,5 @@ public class Carro implements Serializable {
     public String toString() {
         return "Carro{" + "id=" + id + ", nome=" + nome + ", statusReserva=" + statusReserva + ", valor=" + valor + ", ano=" + ano + ", placa=" + placa + ", reserva=" + reserva + '}';
     }
+
 }
