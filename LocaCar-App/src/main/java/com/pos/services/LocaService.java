@@ -18,10 +18,13 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.annotation.Resource;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.servlet.http.HttpSession;
 import javax.transaction.UserTransaction;
 
 /**
@@ -36,6 +39,7 @@ public class LocaService {
     @Resource
     private UserTransaction transaction;
     private DaoImpl dao;
+
     /**
      * This is a sample web service operation
      *
@@ -76,22 +80,36 @@ public class LocaService {
     public void reservarCarro(int idCarro, Pessoa pessoa, Date dtInicial, Date dtFinal) {
         Map<String, Object> params = new HashMap();
         params.put("id", idCarro);
-        Carro carro =  (Carro) dao.buscaObjetoComNamedQuery(Carro.BUSCAR_CARRO_PELO_ID, params);
-        
-        dao.salva(pessoa);
-        
+        Carro carro = (Carro) dao.buscaObjetoComNamedQuery(Carro.BUSCAR_CARRO_PELO_ID, params);
+
+        dao.atualiza(pessoa);
+
         Reserva reserva = new Reserva();
         reserva.setCarro(carro);
         reserva.setPessoa(pessoa);
         reserva.setDataFimReserva(dtFinal);
         reserva.setDataInicioReserva(dtInicial);
-        
+
         dao.salva(reserva);
-        
+
         carro.setStatusReserva(TipoStatusReserva.RESERVADO);
-        
+
         dao.atualiza(carro);
-        
+
+    }
+
+    @WebMethod(operationName = "loginPessoa")
+    public Pessoa login(String login, String password) {
+        Pessoa pessoa = null;
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("login", login);
+        map.put("senha", password);
+
+        Pessoa pessoaRetornada = (Pessoa) dao.buscaObjetoComNamedQuery(Pessoa.BUSCAR_LOGIN_SENHA, map);
+        if (pessoaRetornada != null) {
+            pessoa = pessoaRetornada;
+        }
+        return pessoa;
     }
 
     @PostConstruct
