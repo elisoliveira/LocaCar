@@ -1,0 +1,52 @@
+Sistema LocaCar
+Versão 2.0
+
+## Equipe ##
+Elisiany Oliveira
+Magdiel Idelfonso
+Kelson Duarte
+
+
+## Serviços ##
+
+-> Serviço 1
+Operação: Listar todos os carros cadastrados
+Verbo HTTP: POST
+URL: Locacar/ReservaService?WSDL
+Retorno:  Lista de todos os carros
+
+-> Serviço 2
+Operação: Listar os carros que estão disponíveis para locação
+Verbo HTTP: POST
+URL: Locacar/ReservaService?WSDL
+Atributos: nomeCarro (Alfanumérico/Obrigatório)
+Retorno: Lista de carros disponíveis
+
+-> Serviço 3
+Operação: Listar os carros que estão disponíveis pelo id da locadora de carros
+Verbo HTTP: POST
+URL: Locacar/ReservaService?WSDL
+Atributos: idLocadora (Alfanumérico/Obrigatório)
+Retorno: Lista de carros disponíveis da locadora informada
+
+-> Serviço 4
+Operação: Buscar carro pelo id
+Verbo HTTP: POST
+URL: Locacar/ReservaService?WSDL
+Atributos: idCarro (Alfanumérico/Obrigatório)
+Retorno: Um carro de acordo com o id informado
+
+-> Serviço 5
+Operação: Buscar locadora pelo id
+Verbo HTTP: POST
+URL: Locacar/ReservaService?WSDL
+Atributos: idLocadora (Alfanumérico/Obrigatório)
+Retorno: Uma locadora de acordo com o id informado
+
+-> Serviço 6
+Operação: Fazer reserva de carro
+Verbo HTTP: POST
+URL: Locacar/ReservaService?WSDL
+Atributos: idCarro (Alfanumérico/Obrigatório)
+Retorno: Um carro reservado
+
